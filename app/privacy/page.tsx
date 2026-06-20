@@ -62,9 +62,13 @@ export default function PrivacyPage() {
               Analytics
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              We may use anonymous, aggregated analytics to understand general usage patterns
-              (such as number of visits, geographic distribution, and general page performance).
-              This data cannot be linked to individual users or their content.
+              We use anonymous, aggregated analytics to understand general usage patterns
+              such as page visits, session duration, and site performance. This data is
+              collected with Google Analytics and is not linked to individual users or their content.
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              If you prefer, you can disable analytics in your browser settings or use a
+              tracker-blocking extension.
             </p>
 
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">

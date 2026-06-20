@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -10,6 +11,8 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 });
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sharetextqr.com'),
@@ -101,6 +104,20 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#4F46E5" />
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { HeroSection } from '@/components/sections/hero';
 import { TrustSection } from '@/components/sections/trust';
 import { FeaturesSection } from '@/components/sections/features';
@@ -6,6 +7,19 @@ import { UseCasesSection } from '@/components/sections/use-cases';
 import { TestimonialsSection } from '@/components/sections/testimonials';
 import { FAQSection } from '@/components/sections/faq-section';
 import { CTASection } from '@/components/sections/cta-section';
+
+export const metadata: Metadata = {
+  title: 'ShareTextQR - Share Text Instantly with QR Codes',
+  description:
+    'Convert text into QR codes instantly. Share notes, messages, links, instructions, and more with a simple QR scan. Free, fast, and mobile-friendly.',
+  keywords: [
+    'share text qr',
+    'text to qr code',
+    'qr code generator',
+    'share text online',
+    'free qr code',
+  ],
+};
 
 export default function Home() {
   return (
@@ -47,7 +61,9 @@ export default function Home() {
             logo: 'https://sharetextqr.com/logo.png',
             sameAs: [
               'https://twitter.com/sharetextqr',
-              'https://github.com/sharetextqr',
+              'https://facebook.com/sharetextqr',
+              'https://reddit.com/r/sharetextqr',
+              'https://instagram.com/sharetextqr',
             ],
           }),
         }}

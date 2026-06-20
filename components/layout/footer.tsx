@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { QrCode, Twitter, Github, Linkedin } from 'lucide-react';
+import { QrCode, Twitter, Facebook, Rss, Instagram } from 'lucide-react';
 
 const footerNavigation = {
   main: [
@@ -16,6 +16,11 @@ const footerNavigation = {
     { name: 'Sitemap', href: '/sitemap' },
   ],
   resources: [
+    { name: 'Text to QR Code', href: '/text-to-qr-code' },
+    { name: 'Free QR Code Generator', href: '/free-qr-code-generator' },
+    { name: 'Share Text Online', href: '/share-text-online' },
+    { name: 'QR Code for Text', href: '/qr-code-for-text' },
+    { name: 'Transfer Text Between Devices', href: '/transfer-text-between-devices' },
     { name: 'QR Code Guides', href: '/blog/category/qr-code-guides' },
     { name: 'Productivity Tips', href: '/blog/category/productivity' },
     { name: 'Device Tips', href: '/blog/category/device-tips' },
@@ -24,8 +29,9 @@ const footerNavigation = {
 
 const socialLinks = [
   { name: 'Twitter', href: '#', icon: Twitter },
-  { name: 'GitHub', href: '#', icon: Github },
-  { name: 'LinkedIn', href: '#', icon: Linkedin },
+  { name: 'Facebook', href: '#', icon: Facebook },
+  { name: 'Reddit', href: '#', icon: Rss },
+  { name: 'Instagram', href: '#', icon: Instagram },
 ];
 
 export function Footer() {

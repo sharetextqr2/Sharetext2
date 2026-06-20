@@ -14,6 +14,11 @@ const mainPages = [
   { name: 'Blog', href: '/blog', description: 'Guides, tips, and insights' },
   { name: 'FAQ', href: '/faq', description: 'Frequently asked questions' },
   { name: 'Contact', href: '/contact', description: 'Get in touch with us' },
+  { name: 'Text to QR Code', href: '/text-to-qr-code', description: 'Convert text into QR codes instantly' },
+  { name: 'Free QR Code Generator', href: '/free-qr-code-generator', description: 'Generate QR codes for text completely free' },
+  { name: 'Share Text Online', href: '/share-text-online', description: 'Share text online instantly using QR codes' },
+  { name: 'QR Code for Text', href: '/qr-code-for-text', description: 'Create QR codes for text messages and notes' },
+  { name: 'Transfer Text Between Devices', href: '/transfer-text-between-devices', description: 'Transfer text between phones, tablets, and computers' },
 ];
 
 const legalPages = [
@@ -32,6 +37,9 @@ export default function SitemapPage() {
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400">
             Find all pages on ShareTextQR
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+            For search engines, use the XML sitemap at <a href="/sitemap.xml" className="text-indigo-600 dark:text-indigo-400 hover:underline">/sitemap.xml</a>.
           </p>
         </div>
       </section>
