@@ -12,7 +12,7 @@ export interface BlogPost {
 
 export const categories = [
   { slug: 'qr-code-guides', name: 'QR Code Guides', description: 'Learn how to use QR codes effectively' },
-  { slug: 'productivity', name: 'Productivity', description: 'Tips to boost your productivity' },
+  { slug: 'productivity', name: 'Productivity', description: 'Productivity tips for fast text sharing, workflow efficiency, and QR code collaboration' },
   { slug: 'technology', name: 'Technology', description: 'Latest tech insights and trends' },
   { slug: 'education', name: 'Education', description: 'Educational technology and tips' },
   { slug: 'device-tips', name: 'Device Tips', description: 'Get the most from your devices' },
@@ -253,6 +253,147 @@ QR codes offer businesses a simple but powerful tool for improving communication
     category: 'communication',
     author: 'ShareTextQR Team',
     publishedAt: '2024-01-01',
+    readTime: '5 min read',
+  },
+  {
+    slug: 'boost-productivity-with-qr-code-text-sharing',
+    title: 'Boost Productivity with QR Code Text Sharing',
+    excerpt: 'Learn how QR code text sharing speeds up workflows, reduces friction, and keeps your team moving fast.',
+    content: `
+## Boost Productivity with QR Code Text Sharing
+
+Sharing text between devices should be fast and frictionless. With QR code text sharing, you can move notes, URLs, code snippets, and important instructions without switching apps or copying and pasting.
+
+### Why QR Code Text Sharing Improves Productivity
+
+- **Instant transfer**: Generate a QR code and scan it on another device in seconds.
+- **No app required**: Works in any browser with a camera scanner.
+- **No signups**: No accounts, no subscriptions, and no sync setup.
+- **More focus**: Spend less time managing transfers and more time on real work.
+
+### Use Cases for Faster Workflows
+
+- Send meeting notes from laptop to phone before a call.
+- Share research snippets with teammates instantly.
+- Move quick instructions between your desktop and mobile device.
+- Transfer a link or password without opening email or chat.
+
+### Best Practices
+
+1. Keep text short and clear for easier scans.
+2. Use bright screens and high contrast when scanning.
+3. Scan with a phone camera on the text QR page for fastest results.
+4. Save transferred text into your note app or task manager right away.
+
+### Example Workflow
+
+1. Open ShareTextQR and paste your text.
+2. Choose "Generate QR Code." 
+3. Scan the QR code on another device.
+4. Copy the decoded text and continue your task.
+
+### Real Productivity Benefits
+
+QR code text sharing helps reduce context switching. Instead of opening email, messaging apps, or cloud storage, you can transfer the exact text you need and keep momentum.
+
+## Conclusion
+
+ShareTextQR is built for productivity. Use QR code text sharing when you need to move information quickly, preserve privacy, and keep your workflow smooth.
+    `,
+    category: 'productivity',
+    author: 'ShareTextQR Team',
+    publishedAt: '2024-02-01',
+    readTime: '5 min read',
+  },
+  {
+    slug: 'streamline-workflows-with-sharetextqr',
+    title: 'Streamline Your Workflow with ShareTextQR',
+    excerpt: 'Discover practical ways to use ShareTextQR for faster note sharing, fewer interruptions, and better productivity.',
+    content: `
+## Streamline Your Workflow with ShareTextQR
+
+A productive workflow minimizes friction. ShareTextQR helps teams and individuals share text quickly, so you can reduce interruptions and stay focused.
+
+### Why Workflow Efficiency Matters
+
+The time it takes to transfer a small piece of text adds up quickly. ShareTextQR removes unnecessary steps by letting you generate a QR code directly from your browser and scan it on any device.
+
+### Productivity Benefits
+
+- **Fewer app switches**: No chat apps, no email, no copy/paste.
+- **Quicker handoff**: Send content to another device in one scan.
+- **Better collaboration**: Share text with teammates during meetings and pair sessions.
+- **More secure**: Keep content private with static QR encoding.
+
+### Practical Uses
+
+- Share product specs with a colleague during a review.
+- Send copy for a landing page from your desktop to mobile.
+- Transfer a quick checklist to your phone before an errand.
+- Share a task description with a teammate without creating a task item.
+
+### Workflow Tips
+
+1. Create a clear title or label in your text before generating a QR code.
+2. Use ShareTextQR for urgent information that needs to move fast.
+3. Scan directly with your camera app to avoid slow third-party scanners.
+4. Keep a list of frequent text snippets handy for repeat use.
+
+### Work Smarter with QR Sharing
+
+When your work depends on fast communication, QR code text sharing is one of the simplest productivity tools you can use. It helps you act faster, reduces distractions, and keeps your team aligned.
+
+## Summary
+
+Use ShareTextQR to streamline everyday text sharing. The faster you can move information, the more productive your workflow becomes.
+    `,
+    category: 'productivity',
+    author: 'ShareTextQR Team',
+    publishedAt: '2024-02-05',
+    readTime: '6 min read',
+  },
+  {
+    slug: 'productivity-hacks-for-qr-based-text-transfer',
+    title: 'Productivity Hacks for QR-Based Text Transfer',
+    excerpt: 'These QR code productivity hacks help you move text between devices faster and keep your focus on high-value work.',
+    content: `
+## Productivity Hacks for QR-Based Text Transfer
+
+If saving time matters, QR-based text transfer is a practical hack. ShareTextQR makes it easy to move text quickly between screens and devices.
+
+### Productivity Hack #1: Use QR Sharing for Quick Notes
+
+Instead of opening a note-taking app or email, paste your text into ShareTextQR and generate a QR code. Scan it immediately on another device and keep your momentum.
+
+### Productivity Hack #2: Avoid Repetitive Typing
+
+Stop retyping URLs, short instructions, and reference text. Generate a QR code once and scan it on the target device.
+
+### Productivity Hack #3: Keep Scans Clean
+
+Use plain text without extra formatting to make scanning faster and more reliable. This reduces errors and saves time.
+
+### Productivity Hack #4: Share With Teams Instantly
+
+During calls or meetings, share text updates, links, or action items with teammates by generating a QR code. They can scan and continue without waiting for you to type.
+
+### Productivity Hack #5: Use It for Personal Workflows
+
+- Move research notes from desktop to phone
+- Transfer shopping lists before leaving the house
+- Share a quick message between devices without notifications
+
+## Why These Hacks Work
+
+These QR-based productivity hacks work because they minimize friction. Less switching between apps means more time spent on what matters.
+
+## Final Tip
+
+Make ShareTextQR part of your productivity toolkit. It’s a small change that can save minutes every day.
+    `,
+    category: 'productivity',
+    author: 'ShareTextQR Team',
+    publishedAt: '2024-02-10',
     readTime: '5 min read',
   },
   {
