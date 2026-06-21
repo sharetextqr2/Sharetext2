@@ -58,7 +58,7 @@ export default function Home() {
             '@type': 'Organization',
             name: 'ShareTextQR',
             url: 'https://sharetextqr.com',
-            logo: 'https://sharetextqr.com/logo.png',
+            logo: 'https://sharetextqr.com/logo.svg',
             sameAs: [
               'https://twitter.com/sharetextqr',
               'https://facebook.com/sharetextqr',

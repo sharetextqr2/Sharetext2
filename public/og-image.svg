@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="ogG" x1="0" x2="1">
+      <stop offset="0" stop-color="#6366F1" />
+      <stop offset="1" stop-color="#8B5CF6" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#0f172a" />
+  <rect x="60" y="60" width="220" height="220" rx="44" fill="url(#ogG)" />
+  <g transform="translate(100,100)" fill="#fff">
+    <rect x="0" y="0" width="44" height="44" rx="8" />
+    <rect x="0" y="96" width="44" height="44" rx="8" />
+    <rect x="96" y="0" width="44" height="44" rx="8" />
+    <rect x="96" y="96" width="36" height="36" />
+  </g>
+  <text x="320" y="240" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="56" font-weight="700" fill="#fff">ShareTextQR</text>
+  <text x="320" y="310" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="28" fill="#94a3b8">Instant text sharing via QR codes — no apps, no signups.</text>
+</svg>

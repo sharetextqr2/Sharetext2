@@ -58,7 +58,7 @@ export const metadata: Metadata = {
       'Generate QR codes from text and access them instantly on phones, tablets, laptops, and desktops. No signups, no downloads, no apps.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'ShareTextQR - Instant Text Sharing via QR Codes',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: 'ShareTextQR - Share Unlimited Text Across Any Device Instantly',
     description:
       'Generate QR codes from text and access them instantly on phones, tablets, laptops, and desktops.',
-    images: ['/og-image.png'],
+    images: ['/og-image.svg'],
     creator: '@sharetextqr',
   },
   robots: {
@@ -101,9 +101,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="canonical" href="https://sharetextqr.com" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+        <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#4F46E5" />
+        <meta name="image" content="/og-image.svg" />
+        <meta property="og:image" content="/og-image.svg" />
+        <meta name="twitter:image" content="/og-image.svg" />
         {GA_ID ? (
           <>
             <Script
