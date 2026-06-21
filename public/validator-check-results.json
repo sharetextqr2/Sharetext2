@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Twitter Card Validator",
+    "url": "https://cards-dev.twitter.com/validator",
+    "note": "Twitter validator may require login and may not render reliably headlessly.",
+    "status": "loaded",
+    "screenshot": "./public/twitter_card_validator.png"
+  },
+  {
+    "name": "Facebook Sharing Debugger",
+    "url": "https://developers.facebook.com/tools/debug/",
+    "note": "Facebook debugger may need a login and may redirect. Grab screenshot if possible.",
+    "status": "loaded",
+    "screenshot": "./public/facebook_sharing_debugger.png"
+  },
+  {
+    "name": "Homepage Head",
+    "status": "captured",
+    "screenshot": "./public/head-screenshot.png",
+    "html": "./public/head-meta.html"
+  }
+]
