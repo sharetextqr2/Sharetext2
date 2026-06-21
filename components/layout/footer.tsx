@@ -1,6 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
-import { QrCode, Twitter, Facebook, Rss, Instagram } from 'lucide-react';
+import { QrCode, X, Facebook, Instagram, Youtube } from 'lucide-react';
+
+function RedditIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 21c4.97 0 9-3.582 9-8s-4.03-8-9-8-9 3.582-9 8 4.03 8 9 8Z" />
+      <path d="M7 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm10 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm-8.5 3.25c1.167.833 2.581 1.25 4.5 1.25s3.333-.417 4.5-1.25" />
+      <path d="M15.5 9A1.5 1.5 0 1 0 14 6.5 1.5 1.5 0 0 0 15.5 9Z" />
+      <path d="M15.5 9 17.5 7.5" />
+      <path d="M15.5 9 17.5 10.5" />
+      <path d="M9.5 8.5 12 5" />
+    </svg>
+  );
+}
 
 const footerNavigation = {
   main: [
@@ -28,10 +50,11 @@ const footerNavigation = {
 };
 
 const socialLinks = [
-  { name: 'Twitter', href: '#', icon: Twitter },
-  { name: 'Facebook', href: '#', icon: Facebook },
-  { name: 'Reddit', href: '#', icon: Rss },
-  { name: 'Instagram', href: '#', icon: Instagram },
+  { name: 'X', href: 'https://x.com/sharetextqr', icon: X },
+  { name: 'Reddit', href: 'https://www.reddit.com/u/sharetextqr/s/45Z7O0HIWo', icon: RedditIcon },
+  { name: 'Instagram', href: 'https://www.instagram.com/sharetextqr?igsh=d3ZpbGk1MDY0dTFn', icon: Instagram },
+  { name: 'YouTube', href: 'https://youtube.com/@sharetextqr?si=IsjxXb9I2lFVmr4v', icon: Youtube },
+  { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591111533282', icon: Facebook },
 ];
 
 export function Footer() {
@@ -64,6 +87,8 @@ export function Footer() {
                   <a
                     key={item.name}
                     href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                     aria-label={item.name}
                   >
