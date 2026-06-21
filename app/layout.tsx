@@ -107,7 +107,13 @@ export default function RootLayout({
         <meta name="theme-color" content="#4F46E5" />
         <meta name="image" content="/og-image.svg" />
         <meta property="og:image" content="/og-image.svg" />
+        <meta property="og:image:secure_url" content="https://sharetextqr.com/og-image.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="twitter:image" content="/og-image.svg" />
+        <meta name="twitter:image:src" content="/og-image.png" />
+        <meta name="twitter:image:alt" content="ShareTextQR - Instant Text Sharing via QR Codes" />
         {GA_ID ? (
           <>
             <Script
