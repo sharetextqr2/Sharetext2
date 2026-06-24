@@ -116,6 +116,14 @@ export default function RootLayout({
         <meta name="twitter:image" content="/og-image.svg" />
         <meta name="twitter:image:src" content="/og-image.png" />
         <meta name="twitter:image:alt" content="ShareTextQR - Instant Text Sharing via QR Codes" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'ShareTextQR',
+            url: 'https://www.sharetextqr.com',
+          }),
+        }} />
         {GA_ID ? (
           <>
             <Script
