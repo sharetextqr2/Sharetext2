@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { Copy, Check, RefreshCw, ArrowRight, ExternalLink, Download } from 'lucide-react';
+import { Copy, Check, RefreshCw, ArrowRight, ExternalLink, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 
 function generateShortId(): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -17,40 +17,30 @@ function generateShortId(): string {
   return result;
 }
 
-function downloadQR(url: string, filename: string) {
-  const canvas = document.createElement('canvas');
-  const svg = document.querySelector('.qr-display svg') as SVGElement;
-  if (!svg) return;
-  const xml = new XMLSerializer().serializeToString(svg);
-  const img = new window.Image();
-  img.onload = () => {
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0);
-    const link = document.createElement('a');
-    link.download = filename;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  };
-  img.src = 'data:image/svg+xml;base64,' + btoa(xml);
-}
-
 export default function TextToQR() {
   const [text, setText] = useState('');
   const [copied, setCopied] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [qrUrl, setQrUrl] = useState('');
   const [generating, setGenerating] = useState(false);
+  const [envError, setEnvError] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
 
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
     if (!text.trim()) return;
     setGenerating(true);
+    setEnvError(false);
+
     try {
+      let supabase;
+      try {
+        supabase = getSupabase();
+      } catch {
+        setEnvError(true);
+        setGenerating(false);
+        return;
+      }
+
       const shortId = generateShortId();
       const { error } = await supabase
         .from('shared_texts')
@@ -64,41 +54,46 @@ export default function TextToQR() {
           const { error: err2 } = await supabase
             .from('shared_texts')
             .insert({ short_id: shortId2, content: text.trim() });
-          if (err2) throw new Error('Failed to save text. Please try again.');
+          if (err2) {
+            toast.error('Failed to save text. Please try again.');
+            setGenerating(false);
+            return;
+          }
           setQrUrl(`${window.location.origin}/view/${shortId2}`);
         } else {
-          throw new Error(error.message || 'Failed to save text. Please try again.');
+          toast.error(error.message || 'Failed to save text. Please try again.');
+          setGenerating(false);
+          return;
         }
       } else {
         setQrUrl(`${window.location.origin}/view/${shortId}`);
       }
+
       setShowQR(true);
       toast.success('QR code generated successfully!');
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to generate QR code.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.';
+      console.error('Generate QR error:', err);
+      toast.error(message);
     } finally {
       setGenerating(false);
     }
-  };
+  }, [text]);
 
-  const handleClear = () => {
+  const handleCreateNew = useCallback(() => {
     setText('');
     setShowQR(false);
     setCopied(false);
     setQrUrl('');
-  };
+    setEnvError(false);
+  }, []);
 
-  const handleCopyUrl = async () => {
+  const handleCopyLink = useCallback(async () => {
     await navigator.clipboard.writeText(qrUrl);
     setCopied(true);
     toast.success('Link copied to clipboard!');
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleDownload = () => {
-    downloadQR(qrUrl, 'sharetextqr.png');
-    toast.success('QR code downloaded!');
-  };
+  }, [qrUrl]);
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
@@ -107,6 +102,18 @@ export default function TextToQR() {
       </div>
 
       <div className="p-6 md:p-8">
+        {envError && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-red-800">Supabase not configured</p>
+              <p className="text-sm text-red-600 mt-1">
+                Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables to enable text sharing.
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div>
@@ -128,9 +135,6 @@ export default function TextToQR() {
                 ) : (
                   <>Generate QR <ArrowRight className="ml-2 h-4 w-4" /></>
                 )}
-              </Button>
-              <Button variant="outline" onClick={handleClear} className="px-4">
-                <RefreshCw className="h-4 w-4" />
               </Button>
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -163,19 +167,25 @@ export default function TextToQR() {
 
         {showQR && qrUrl && (
           <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-4">
+              <span className="font-medium">Share URL:</span>
+              <code className="px-2 py-1 bg-gray-100 rounded text-xs break-all max-w-[300px]">
+                {qrUrl}
+              </code>
+            </div>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Button variant="outline" onClick={handleDownload} className="gap-2">
-                <Download className="h-4 w-4" />
-                Download PNG
-              </Button>
-              <Button variant="outline" onClick={handleCopyUrl} className="gap-2">
+              <Button variant="outline" onClick={handleCopyLink} className="gap-2">
                 {copied ? <><Check className="h-4 w-4 text-green-500" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy Link</>}
               </Button>
               <Button variant="outline" asChild className="gap-2">
                 <a href={qrUrl} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4" />
-                  Preview
+                  Share
                 </a>
+              </Button>
+              <Button variant="outline" onClick={handleCreateNew} className="gap-2">
+                <RefreshCw className="h-4 w-4" />
+                Create New
               </Button>
             </div>
             <p className="text-center text-xs text-gray-500 mt-4">

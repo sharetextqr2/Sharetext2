@@ -6,7 +6,7 @@ import { Copy, Check, ArrowLeft, CircleAlert as AlertCircle, FileText } from 'lu
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 
 export default function ViewPageClient() {
   const params = useParams();
@@ -26,7 +26,7 @@ export default function ViewPageClient() {
           return;
         }
 
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from('shared_texts')
           .select('content')
           .eq('short_id', shortId)
@@ -133,9 +133,9 @@ export default function ViewPageClient() {
                 )}
               </Button>
               <Button asChild variant="outline" className="h-12 px-6">
-                <a href="/">
+                <a href="/text-to-qr">
                   <ArrowLeft className="mr-2 h-4 w-4" />
-                  Create New
+                  Create New Share
                 </a>
               </Button>
             </div>

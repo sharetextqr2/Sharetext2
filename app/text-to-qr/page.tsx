@@ -19,16 +19,12 @@ const faqItems = [
     answer: 'No, there is no character limit. You can share unlimited text, including notes, URLs, code snippets, or entire documents. The character counter helps you track length.',
   },
   {
-    question: 'Can I download the QR code as an image?',
-    answer: 'Yes, you can download the QR code as a PNG image using the Download PNG button below the QR code. This is useful for printing or embedding in documents.',
-  },
-  {
     question: 'How long does the shared text remain available?',
     answer: 'The text remains available as long as the short link is valid. Links are not automatically deleted, ensuring your content stays accessible.',
   },
   {
     question: 'Can I preview the shared text before sharing?',
-    answer: 'Yes, click the Preview button to open the shared text page in a new tab. This lets you verify the content before sharing the QR code with others.',
+    answer: 'Yes, click the Share button to open the shared text page in a new tab. This lets you verify the content before sharing the QR code with others.',
   },
 ];
 
