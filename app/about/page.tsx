@@ -1,19 +1,15 @@
-import { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowRight, Target, Heart, Eye, Lightbulb, Users, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Section } from '@/components/shared/card';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'About ShareTextQR',
   description:
     'Learn about ShareTextQR - our mission to make text sharing across devices simple, fast, and private. Discover why we built the best QR text generator.',
-  openGraph: {
-    title: 'About ShareTextQR',
-    description:
-      'Learn about ShareTextQR - our mission to make text sharing across devices simple, fast, and private.',
-  },
-};
+  path: '/about',
+});
 
 const values = [
   {

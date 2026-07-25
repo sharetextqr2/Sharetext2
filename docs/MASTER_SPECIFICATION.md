@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 
-**Status:** 🔒 COMPLETE
+**Status:** 🔒 LOCKED
 
 **Document Type:** Engineering Product Requirements Document (PRD)
 
@@ -8860,6 +8860,30 @@ Status: 🔒 LOCKED
 
 Version: 1.0.0
 
-Status: COMPLETE
+Status: 🔒 LOCKED
 
 This document is the official Product Requirements Document (PRD) for ShareTextQR and serves as the single source of truth for all future product planning, implementation and maintenance.
+
+---
+
+# Change Control
+
+This document is LOCKED.
+
+No modifications may be made without explicit Product Owner approval.
+
+If implementation reveals:
+
+- a conflict,
+- an ambiguity,
+- a missing requirement,
+- an implementation issue,
+- or a possible improvement,
+
+DeepSeek must:
+
+1. Stop implementation.
+2. Report the issue.
+3. Wait for Product Owner approval.
+4. Record every approved change in DECISION_LOG.md.
+5. Increase the document version before making any modification.

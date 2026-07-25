@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 import { Section } from '@/components/shared/card';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Privacy Policy',
-  description:
-    'Learn how ShareTextQR collects, uses, and protects your information. Our privacy-first approach to text sharing.',
-};
+  description: 'Learn how ShareTextQR collects, uses, and protects your information. Our privacy-first approach to text sharing.',
+  path: '/privacy',
+});
 
 export default function PrivacyPage() {
   return (

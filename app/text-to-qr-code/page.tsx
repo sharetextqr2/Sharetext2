@@ -1,17 +1,12 @@
-import type { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Text to QR Code Generator | ShareTextQR',
-  description:
-    'Convert text into QR codes instantly. Create QR codes for notes, messages, instructions, and information sharing without any signup.',
-  keywords: [
-    'text to qr code',
-    'convert text to qr',
-    'qr code for text',
-    'text qr generator',
-    'text sharing qr',
-  ],
-};
+  description: 'Convert text into QR codes instantly. Create QR codes for notes, messages, instructions, and information sharing without any signup.',
+  path: '/text-to-qr-code',
+  keywords: ['text to qr code', 'convert text to qr', 'qr code for text', 'text qr generator', 'text sharing qr'],
+  noindex: true,
+});
 
 export default function TextToQrCodePage() {
   return (

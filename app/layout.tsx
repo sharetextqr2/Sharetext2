@@ -2,7 +2,6 @@ import './globals.css';
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/sonner';
@@ -17,28 +16,20 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata: Metadata = {
   metadataBase: new URL('https://sharetextqr.com'),
   title: {
-    default: 'ShareTextQR - Share Unlimited Text Across Any Device Instantly',
+    default: 'ShareTextQR - Free Online QR Code & Image Tools',
     template: '%s | ShareTextQR',
   },
   description:
-    'Generate QR codes from text and access them instantly on phones, tablets, laptops, and desktops. No signups, no downloads, no apps. Free, fast, and privacy-focused text sharing.',
+    'Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, and more. No signup required.',
   keywords: [
-    'text to qr code',
-    'share text via qr code',
-    'qr text generator',
-    'unlimited qr code text',
-    'text sharing qr code',
-    'qr code message generator',
-    'qr code communication',
-    'online qr text generator',
-    'instant qr sharing',
-    'free qr code text tool',
-    'transfer text between devices',
-    'share notes through qr',
-    'qr code note sharing',
-    'send text from phone to pc',
-    'cross device text sharing',
-    'qr code productivity tool',
+    'qr code generator',
+    'text to qr',
+    'online qr code',
+    'free image tools',
+    'png to svg',
+    'image compressor',
+    'qr code scanner',
+    'online utilities',
   ],
   authors: [{ name: 'ShareTextQR' }],
   creator: 'ShareTextQR',
@@ -53,23 +44,23 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://sharetextqr.com',
     siteName: 'ShareTextQR',
-    title: 'ShareTextQR - Share Unlimited Text Across Any Device Instantly',
+    title: 'ShareTextQR - Free Online QR Code & Image Tools',
     description:
-      'Generate QR codes from text and access them instantly on phones, tablets, laptops, and desktops. No signups, no downloads, no apps.',
+      'Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, and more. No signup required.',
     images: [
       {
         url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'ShareTextQR - Instant Text Sharing via QR Codes',
+        alt: 'ShareTextQR - Free Online QR Code & Image Tools',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ShareTextQR - Share Unlimited Text Across Any Device Instantly',
+    title: 'ShareTextQR - Free Online QR Code & Image Tools',
     description:
-      'Generate QR codes from text and access them instantly on phones, tablets, laptops, and desktops.',
+      'Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, and more.',
     images: ['/og-image.svg'],
     creator: '@sharetextqr',
   },
@@ -98,24 +89,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <link rel="canonical" href="https://sharetextqr.com" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="256x256" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#4F46E5" />
+        <meta name="theme-color" content="#2563EB" />
         <meta name="image" content="/og-image.svg" />
-        <meta property="og:image" content="/og-image.svg" />
-        <meta property="og:image:secure_url" content="https://sharetextqr.com/og-image.png" />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:image" content="/og-image.svg" />
-        <meta name="twitter:image:src" content="/og-image.png" />
-        <meta name="twitter:image:alt" content="ShareTextQR - Instant Text Sharing via QR Codes" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
@@ -140,19 +122,18 @@ gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
         ) : null}
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-          <Toaster position="bottom-right" />
-        </ThemeProvider>
+        <div className="relative min-h-screen flex flex-col">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:shadow-lg"
+          >
+            Skip to main content
+          </a>
+          <Header />
+          <main id="main-content" className="flex-grow">{children}</main>
+          <Footer />
+        </div>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

@@ -1,17 +1,12 @@
-import type { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Share Text Online with QR Codes | ShareTextQR',
-  description:
-    'Share text online instantly using QR codes. Perfect for transferring notes, messages, passwords, and information between devices.',
-  keywords: [
-    'share text online',
-    'send text online',
-    'text sharing',
-    'share notes online',
-    'qr text sharing',
-  ],
-};
+  description: 'Share text online instantly using QR codes. Perfect for transferring notes, messages, passwords, and information between devices.',
+  path: '/share-text-online',
+  keywords: ['share text online', 'send text online', 'text sharing', 'share notes online', 'qr text sharing'],
+  noindex: true,
+});
 
 export default function ShareTextOnlinePage() {
   return (

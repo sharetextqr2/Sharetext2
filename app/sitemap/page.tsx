@@ -1,12 +1,13 @@
-import { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 import Link from 'next/link';
 import { categories, blogPosts } from '@/lib/blog-data';
 import { Section } from '@/components/shared/card';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Sitemap',
   description: 'Navigate all pages on ShareTextQR. Find guides, articles, and information about text QR sharing.',
-};
+  path: '/sitemap',
+});
 
 const mainPages = [
   { name: 'Home', href: '/', description: 'Generate QR codes from text instantly' },

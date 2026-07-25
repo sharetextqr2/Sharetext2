@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { blogPosts, categories } from '@/lib/blog-data';
+import { tools } from '@/lib/tools-data';
 
 const BASE_URL = 'https://sharetextqr.com';
 
@@ -9,15 +10,20 @@ const staticRoutes = [
   '/blog',
   '/faq',
   '/contact',
+  '/privacy',
+  '/terms',
+  '/sitemap',
+];
+
+const stubRoutes = [
   '/text-to-qr-code',
   '/free-qr-code-generator',
   '/share-text-online',
   '/qr-code-for-text',
   '/transfer-text-between-devices',
-  '/privacy',
-  '/terms',
-  '/sitemap',
 ];
+
+const toolRoutes = tools.map((t) => t.href);
 
 const formatDate = (value: string) => {
   try {
@@ -46,6 +52,22 @@ export async function GET() {
         lastmod: formatDate(new Date().toISOString()),
         changefreq: 'weekly',
         priority: route === '/' ? '1.00' : '0.80',
+      }),
+    ),
+    ...toolRoutes.map((route) =>
+      createUrlEntry({
+        loc: route,
+        lastmod: formatDate(new Date().toISOString()),
+        changefreq: 'weekly',
+        priority: '0.90',
+      }),
+    ),
+    ...stubRoutes.map((route) =>
+      createUrlEntry({
+        loc: route,
+        lastmod: formatDate(new Date().toISOString()),
+        changefreq: 'monthly',
+        priority: '0.30',
       }),
     ),
     ...categories.map((category) =>

@@ -1,17 +1,12 @@
-import type { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Free QR Code Generator for Text | ShareTextQR',
-  description:
-    'Generate QR codes for text completely free. Create, share, and scan QR codes instantly from any device.',
-  keywords: [
-    'free qr code generator',
-    'qr code creator',
-    'free qr maker',
-    'generate qr code',
-    'online qr generator',
-  ],
-};
+  description: 'Generate QR codes for text completely free. Create, share, and scan QR codes instantly from any device.',
+  path: '/free-qr-code-generator',
+  keywords: ['free qr code generator', 'qr code creator', 'free qr maker', 'generate qr code', 'online qr generator'],
+  noindex: true,
+});
 
 export default function FreeQrCodeGeneratorPage() {
   return (

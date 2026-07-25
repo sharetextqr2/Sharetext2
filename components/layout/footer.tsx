@@ -1,155 +1,99 @@
 import React from 'react';
 import Link from 'next/link';
-import { QrCode, X, Facebook, Instagram, Youtube } from 'lucide-react';
-
-function RedditIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M12 21c4.97 0 9-3.582 9-8s-4.03-8-9-8-9 3.582-9 8 4.03 8 9 8Z" />
-      <path d="M7 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm10 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm-8.5 3.25c1.167.833 2.581 1.25 4.5 1.25s3.333-.417 4.5-1.25" />
-      <path d="M15.5 9A1.5 1.5 0 1 0 14 6.5 1.5 1.5 0 0 0 15.5 9Z" />
-      <path d="M15.5 9 17.5 7.5" />
-      <path d="M15.5 9 17.5 10.5" />
-      <path d="M9.5 8.5 12 5" />
-    </svg>
-  );
-}
+import { QrCode } from 'lucide-react';
 
 const footerNavigation = {
-  main: [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Contact', href: '/contact' },
+  qrTools: [
+    { name: 'Text to QR', href: '/text-to-qr' },
+    { name: 'Scan QR', href: '/scan-qr' },
   ],
-  legal: [
+  imageTools: [
+    { name: 'PNG to SVG', href: '/png-to-svg' },
+    { name: 'SVG to PNG', href: '/svg-to-png' },
+    { name: 'SVG Viewer', href: '/svg-viewer' },
+    { name: 'Image to Text', href: '/image-to-text' },
+    { name: 'Remove Background', href: '/remove-background' },
+    { name: 'Image Compressor', href: '/image-compressor' },
+    { name: 'Image Resizer', href: '/image-resizer' },
+    { name: 'HEIC to JPG', href: '/heic-to-jpg' },
+    { name: 'Passport Photo Maker', href: '/passport-photo-maker' },
+  ],
+  blog: [
+    { name: 'Blog Home', href: '/blog' },
+    { name: 'QR Code Guides', href: '/blog/category/qr-code-guides' },
+    { name: 'Productivity', href: '/blog/category/productivity' },
+    { name: 'Device Tips', href: '/blog/category/device-tips' },
+  ],
+  company: [
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
     { name: 'Sitemap', href: '/sitemap' },
   ],
-  resources: [
-    { name: 'Text to QR Code', href: '/text-to-qr-code' },
-    { name: 'Free QR Code Generator', href: '/free-qr-code-generator' },
-    { name: 'Share Text Online', href: '/share-text-online' },
-    { name: 'QR Code for Text', href: '/qr-code-for-text' },
-    { name: 'Transfer Text Between Devices', href: '/transfer-text-between-devices' },
-    { name: 'QR Code Guides', href: '/blog/category/qr-code-guides' },
-    { name: 'Productivity Tips', href: '/blog/category/productivity' },
-    { name: 'Device Tips', href: '/blog/category/device-tips' },
-  ],
 };
-
-const socialLinks = [
-  { name: 'X', href: 'https://x.com/sharetextqr', icon: X },
-  { name: 'Reddit', href: 'https://www.reddit.com/u/sharetextqr/s/45Z7O0HIWo', icon: RedditIcon },
-  { name: 'Instagram', href: 'https://www.instagram.com/sharetextqr?igsh=d3ZpbGk1MDY0dTFn', icon: Instagram },
-  { name: 'YouTube', href: 'https://youtube.com/@sharetextqr?si=IsjxXb9I2lFVmr4v', icon: Youtube },
-  { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591111533282', icon: Facebook },
-];
 
 export function Footer() {
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+    <footer className="bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
         <div className="py-12 lg:py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* Brand Column */}
+            {/* Brand */}
             <div className="col-span-2 lg:col-span-2">
-              <Link href="/" className="flex items-center gap-2 group mb-4">
-                <div className="p-2 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/25">
+              <Link href="/" className="flex items-center gap-2 mb-4">
+                <div className="p-2 rounded-xl bg-primary shadow-sm">
                   <QrCode className="h-5 w-5 text-white" />
                 </div>
                 <span className="text-xl font-bold tracking-tight">
-                  <span className="text-gray-900 dark:text-white">Share</span>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-                    TextQR
-                  </span>
+                  <span className="text-gray-900">Share</span>
+                  <span className="text-primary">TextQR</span>
                 </span>
               </Link>
-              <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xs leading-relaxed">
-                Share unlimited text across any device instantly with QR codes.
-                No signups, no downloads, just simple and fast text sharing.
+              <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+                Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, compress, resize, and more.
               </p>
-              {/* Social Links */}
-              <div className="flex items-center gap-4 mt-6">
-                {socialLinks.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                    aria-label={item.name}
-                  >
-                    <item.icon className="h-5 w-5" />
-                  </a>
-                ))}
-              </div>
             </div>
 
-            {/* Navigation Column */}
+            {/* QR Tools */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
-                Navigation
-              </h3>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">QR Tools</h3>
               <ul className="space-y-3">
-                {footerNavigation.main.map((item) => (
+                {footerNavigation.qrTools.map((item) => (
                   <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
+                    <Link href={item.href} className="text-sm text-gray-500 hover:text-primary transition-colors">{item.name}</Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Resources Column */}
+            {/* Image Tools */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
-                Resources
-              </h3>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Image Tools</h3>
               <ul className="space-y-3">
-                {footerNavigation.resources.map((item) => (
+                {footerNavigation.imageTools.map((item) => (
                   <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
+                    <Link href={item.href} className="text-sm text-gray-500 hover:text-primary transition-colors">{item.name}</Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Legal Column */}
+            {/* Blog & Company */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
-                Legal
-              </h3>
-              <ul className="space-y-3">
-                {footerNavigation.legal.map((item) => (
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Blog</h3>
+              <ul className="space-y-3 mb-8">
+                {footerNavigation.blog.map((item) => (
                   <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
+                    <Link href={item.href} className="text-sm text-gray-500 hover:text-primary transition-colors">{item.name}</Link>
+                  </li>
+                ))}
+              </ul>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Company</h3>
+              <ul className="space-y-3">
+                {footerNavigation.company.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-sm text-gray-500 hover:text-primary transition-colors">{item.name}</Link>
                   </li>
                 ))}
               </ul>
@@ -157,19 +101,10 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="py-6 border-t border-gray-200 dark:border-gray-800">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              © {new Date().getFullYear()} ShareTextQR. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                All systems operational
-              </span>
-            </div>
-          </div>
+        <div className="py-6 border-t border-gray-200">
+          <p className="text-sm text-gray-400 text-center sm:text-left">
+            &copy; {new Date().getFullYear()} ShareTextQR. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

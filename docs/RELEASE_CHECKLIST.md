@@ -4,7 +4,7 @@
 
 **Document Version:** 1.0.0
 
-**Status:** 🔒 ACTIVE
+**Status:** 🔒 LOCKED
 
 ---
 
@@ -292,4 +292,28 @@ End of Release Checklist
 
 **Version:** 1.0.0
 
-**Status:** 🔒 ACTIVE
+**Status:** 🔒 LOCKED
+
+---
+
+# Change Control
+
+This document is LOCKED.
+
+No modifications may be made without explicit Product Owner approval.
+
+If implementation reveals:
+
+- a conflict,
+- an ambiguity,
+- a missing requirement,
+- an implementation issue,
+- or a possible improvement,
+
+DeepSeek must:
+
+1. Stop implementation.
+2. Report the issue.
+3. Wait for Product Owner approval.
+4. Record every approved change in DECISION_LOG.md.
+5. Increase the document version before making any modification.

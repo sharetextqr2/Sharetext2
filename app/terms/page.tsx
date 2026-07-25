@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 import { Section } from '@/components/shared/card';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Terms of Service',
-  description:
-    'Terms and conditions for using ShareTextQR. Please read these terms carefully before using our service.',
-};
+  description: 'Terms and conditions for using ShareTextQR. Please read these terms carefully before using our service.',
+  path: '/terms',
+});
 
 export default function TermsPage() {
   return (

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { Copy, Check, ArrowLeft, CircleAlert as AlertCircle, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -22,7 +21,6 @@ export default function ViewPageClient() {
         const shortId = params.id as string;
 
         if (!shortId || shortId.length < 4) {
-          console.error('Invalid short ID:', shortId);
           setError(true);
           setLoading(false);
           return;
@@ -35,17 +33,14 @@ export default function ViewPageClient() {
           .maybeSingle();
 
         if (error) {
-          console.error('Fetch error:', error);
           setError(true);
         } else if (!data) {
-          console.log('No data found for short ID:', shortId);
           setError(true);
         } else {
           setText(data.content);
         }
         setLoading(false);
-      } catch (err) {
-        console.error('Unexpected error fetching text:', err);
+      } catch {
         setError(true);
         setLoading(false);
       }
@@ -68,7 +63,7 @@ export default function ViewPageClient() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
       </div>
     );
   }
@@ -78,10 +73,10 @@ export default function ViewPageClient() {
       <div className="flex items-center justify-center min-h-[60vh] px-4">
         <Card className="max-w-md w-full p-8 text-center">
           <AlertCircle className="mx-auto h-12 w-12 text-red-500 mb-4" />
-          <h1 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-xl font-semibold text-gray-900 mb-2">
             Text Not Found
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-500 mb-6">
             The shared text you are looking for does not exist or has expired.
           </p>
           <Button asChild variant="outline">
@@ -97,14 +92,9 @@ export default function ViewPageClient() {
 
   return (
     <div className="flex items-center justify-center min-h-[60vh] px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-2xl"
-      >
-        <Card className="overflow-hidden shadow-lg border-0 bg-white dark:bg-gray-900">
-          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 px-6 py-5">
+      <div className="w-full max-w-2xl">
+        <Card className="overflow-hidden border-0 shadow-sm">
+          <div className="bg-primary px-6 py-5">
             <div className="flex items-center gap-3">
               <div className="bg-white/20 rounded-lg p-2">
                 <FileText className="h-5 w-5 text-white" />
@@ -121,14 +111,14 @@ export default function ViewPageClient() {
               <textarea
                 readOnly
                 value={text}
-                className="w-full min-h-[200px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-none focus:outline-none text-base leading-relaxed font-mono"
+                className="w-full min-h-[200px] p-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 resize-none focus:outline-none text-base leading-relaxed font-mono"
               />
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Button
                 onClick={handleCopy}
-                className="flex-1 h-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:opacity-90 text-white font-medium text-base transition-all"
+                className="flex-1 h-12 text-base"
               >
                 {copied ? (
                   <>
@@ -151,7 +141,7 @@ export default function ViewPageClient() {
             </div>
           </div>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 }

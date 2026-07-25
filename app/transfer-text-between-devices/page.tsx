@@ -1,17 +1,12 @@
-import type { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'Transfer Text Between Devices Using QR Codes',
-  description:
-    'Quickly transfer text between phones, tablets, and computers using QR codes. No apps, cables, or signups required.',
-  keywords: [
-    'transfer text between devices',
-    'share text phone to pc',
-    'qr file transfer',
-    'device text sharing',
-    'cross device text transfer',
-  ],
-};
+  description: 'Quickly transfer text between phones, tablets, and computers using QR codes. No apps, cables, or signups required.',
+  path: '/transfer-text-between-devices',
+  keywords: ['transfer text between devices', 'share text phone to pc', 'qr file transfer', 'device text sharing', 'cross device text transfer'],
+  noindex: true,
+});
 
 export default function TransferTextBetweenDevicesPage() {
   return (

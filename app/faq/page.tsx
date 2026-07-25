@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { seo } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import {
@@ -10,15 +10,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { Section } from '@/components/shared/card';
 
-export const metadata: Metadata = {
+export const metadata = seo({
   title: 'FAQ - Frequently Asked Questions',
   description:
     'Find answers to common questions about ShareTextQR. Learn about text QR codes, privacy, compatibility, and how to share text across devices.',
-  openGraph: {
-    title: 'FAQ - ShareTextQR',
-    description: 'Find answers to common questions about ShareTextQR and text QR sharing.',
-  },
-};
+  path: '/faq',
+});
 
 const faqs = [
   {

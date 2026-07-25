@@ -5,7 +5,7 @@ interface SectionProps {
   children: React.ReactNode;
   className?: string;
   id?: string;
-  background?: 'default' | 'muted' | 'gradient' | 'dark';
+  background?: 'default' | 'muted';
 }
 
 export function Section({
@@ -15,16 +15,14 @@ export function Section({
   background = 'default',
 }: SectionProps) {
   const backgroundStyles = {
-    default: 'bg-white dark:bg-gray-900',
-    muted: 'bg-gray-50 dark:bg-gray-950',
-    gradient: 'bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800',
-    dark: 'bg-gray-900 dark:bg-gray-950',
+    default: 'bg-white',
+    muted: 'bg-gray-50',
   };
 
   return (
     <section
       id={id}
-      className={cn('py-16 md:py-24 lg:py-32', backgroundStyles[background], className)}
+      className={cn('py-16 md:py-24', backgroundStyles[background], className)}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {children}
@@ -57,15 +55,15 @@ export function SectionHeader({
       )}
     >
       {badge && (
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 mb-4">
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-4">
           {badge}
         </span>
       )}
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        <p className="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">
           {description}
         </p>
       )}

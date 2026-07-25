@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  swcMinify: true,
+  compress: true,
+  reactStrictMode: true,
   images: { unoptimized: true },
 };
 
