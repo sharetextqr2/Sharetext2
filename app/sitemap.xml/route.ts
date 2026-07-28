@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { blogPosts, categories } from '@/lib/blog-data';
 import { tools } from '@/lib/tools-data';
 
-const BASE_URL = 'https://sharetextqr.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://sharetextqr.com';
 
 const staticRoutes = [
   '/',
@@ -13,14 +13,6 @@ const staticRoutes = [
   '/privacy',
   '/terms',
   '/sitemap',
-];
-
-const stubRoutes = [
-  '/text-to-qr-code',
-  '/free-qr-code-generator',
-  '/share-text-online',
-  '/qr-code-for-text',
-  '/transfer-text-between-devices',
 ];
 
 const toolRoutes = tools.map((t) => t.href);
@@ -45,35 +37,29 @@ const createUrlEntry = ({ loc, lastmod, changefreq = 'weekly', priority = '0.80'
 };
 
 export async function GET() {
+  const today = formatDate(new Date().toISOString());
+
   const urls = [
     ...staticRoutes.map((route) =>
       createUrlEntry({
         loc: route,
-        lastmod: formatDate(new Date().toISOString()),
-        changefreq: 'weekly',
+        lastmod: today,
+        changefreq: route === '/' ? 'weekly' : 'monthly',
         priority: route === '/' ? '1.00' : '0.80',
       }),
     ),
     ...toolRoutes.map((route) =>
       createUrlEntry({
         loc: route,
-        lastmod: formatDate(new Date().toISOString()),
+        lastmod: today,
         changefreq: 'weekly',
         priority: '0.90',
-      }),
-    ),
-    ...stubRoutes.map((route) =>
-      createUrlEntry({
-        loc: route,
-        lastmod: formatDate(new Date().toISOString()),
-        changefreq: 'monthly',
-        priority: '0.30',
       }),
     ),
     ...categories.map((category) =>
       createUrlEntry({
         loc: `/blog/category/${category.slug}`,
-        lastmod: formatDate(new Date().toISOString()),
+        lastmod: today,
         changefreq: 'weekly',
         priority: '0.70',
       }),
@@ -86,7 +72,9 @@ export async function GET() {
         priority: '0.65',
       }),
     ),
-  ].join('\n');
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const SvgViewer = dynamic(() => import('@/components/tools/svg-viewer'), { ssr: false });
+import SvgViewer from '@/components/tools/svg-viewer';
 
 const faqItems = [
   { question: 'What is the SVG Viewer tool?', answer: 'The SVG Viewer lets you upload and inspect SVG files with zoom controls. You can view SVG details at various zoom levels without needing a vector editor.' },
@@ -32,7 +30,6 @@ export default function SvgViewerPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR SVG Viewer', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'View and inspect SVG files in your browser.', url: `${BASE_URL}/svg-viewer` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'SVG Viewer' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'SVG Viewer' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">SVG Viewer</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Upload and inspect SVG files with zoom controls. View vector details at any scale without needing a graphics editor.</p></div>}

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import ImageTracer from 'imagetracerjs';
 import { ImageUpload } from '@/components/shared/image-upload';
 import { DownloadSection } from '@/components/shared/download-section';
 import { Button } from '@/components/ui/button';
@@ -13,25 +12,24 @@ export default function PngToSvg() {
   const [svg, setSvg] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
 
-  const handleFile = useCallback((f: File) => {
-    setFile(f);
-    setSvg(null);
-    convert(f);
-  }, []);
-
   const convert = useCallback(async (f: File) => {
     setProcessing(true);
     try {
-      const url = URL.createObjectURL(f);
-      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
-        const i = new Image();
-        i.onload = () => resolve(i);
-        i.onerror = () => reject(new Error('Failed to load image'));
-        i.src = url;
+      const formData = new FormData();
+      formData.append('file', f);
+
+      const res = await fetch('/api/png-to-svg', {
+        method: 'POST',
+        body: formData,
       });
-      URL.revokeObjectURL(url);
-      const result = ImageTracer.imageToSVG(img.src, { scale: 1 });
-      setSvg(result);
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Conversion failed');
+      }
+
+      const svgText = await res.text();
+      setSvg(svgText);
       toast.success('Image converted to SVG!');
     } catch {
       toast.error('Failed to convert image. Please try a different file.');
@@ -39,6 +37,12 @@ export default function PngToSvg() {
       setProcessing(false);
     }
   }, []);
+
+  const handleFile = useCallback((f: File) => {
+    setFile(f);
+    setSvg(null);
+    convert(f);
+  }, [convert]);
 
   const reset = () => {
     setFile(null);
@@ -53,8 +57,8 @@ export default function PngToSvg() {
       <div className="p-6 md:p-8 space-y-6">
         <ImageUpload
           onFile={handleFile}
-          validation={{ maxSizeMB: 20, acceptedTypes: ['.png', 'image/png'] }}
-          label="Drop a PNG image here or click to browse"
+          validation={{ maxSizeMB: 20, acceptedTypes: ['.png', 'image/png', '.jpg', 'image/jpeg', '.jpeg', '.webp', 'image/webp'] }}
+          label="Drop an image here or click to browse"
         />
 
         {processing && (
@@ -76,7 +80,7 @@ export default function PngToSvg() {
             <div className="flex flex-wrap gap-3">
               <DownloadSection
                 data={svg}
-                filename={file?.name?.replace(/\.png$/i, '') || 'converted'}
+                filename={file?.name?.replace(/\.[^.]+$/i, '') || 'converted'}
                 mimeType="image/svg+xml"
                 label="Download SVG"
               />
@@ -90,7 +94,7 @@ export default function PngToSvg() {
 
         {!file && !processing && !svg && (
           <p className="text-center text-xs text-gray-500">
-            Upload a PNG image to convert it to a scalable SVG vector
+            Upload a PNG, JPG or WebP image to convert it to a scalable SVG vector
           </p>
         )}
       </div>

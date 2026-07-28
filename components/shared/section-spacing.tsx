@@ -9,9 +9,9 @@ interface SectionSpacingProps {
 }
 
 const sizeClasses = {
-  sm: 'py-8',
-  md: 'py-12 md:py-16',
-  lg: 'py-16 md:py-20',
+  sm: 'py-12 md:py-16',
+  md: 'py-16 md:py-20',
+  lg: 'py-20 md:py-24',
 };
 
 export function SectionSpacing({ children, className, size = 'lg', id }: SectionSpacingProps) {

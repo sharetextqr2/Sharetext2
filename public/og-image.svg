@@ -1,18 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="ogG" x1="0" x2="1">
-      <stop offset="0" stop-color="#6366F1" />
-      <stop offset="1" stop-color="#8B5CF6" />
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="50%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#16A34A"/>
     </linearGradient>
   </defs>
-  <rect width="100%" height="100%" fill="#0f172a" />
-  <rect x="60" y="60" width="220" height="220" rx="44" fill="url(#ogG)" />
-  <g transform="translate(100,100)" fill="#fff">
-    <rect x="0" y="0" width="44" height="44" rx="8" />
-    <rect x="0" y="96" width="44" height="44" rx="8" />
-    <rect x="96" y="0" width="44" height="44" rx="8" />
-    <rect x="96" y="96" width="36" height="36" />
-  </g>
-  <text x="320" y="240" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="56" font-weight="700" fill="#fff">ShareTextQR</text>
-  <text x="320" y="310" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-size="28" fill="#94a3b8">Instant text sharing via QR codes — no apps, no signups.</text>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="600" y="280" font-family="system-ui, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">
+    ShareTextQR
+  </text>
+  <text x="600" y="360" font-family="system-ui, sans-serif" font-size="28" fill="#E5E7EB" text-anchor="middle">
+    Share Text Online Instantly for Free
+  </text>
+  <text x="600" y="410" font-family="system-ui, sans-serif" font-size="22" fill="#93C5FD" text-anchor="middle">
+    Generate QR Codes · Convert Images · OCR · Passport Photos
+  </text>
+  <rect x="500" y="460" width="200" height="4" rx="2" fill="#16A34A"/>
+  <text x="600" y="520" font-family="system-ui, sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">
+    sharetextqr.com
+  </text>
 </svg>

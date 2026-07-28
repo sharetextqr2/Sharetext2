@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { BASE_URL } from '@/lib/seo';
 
 interface Crumb {
   label: string;
@@ -18,12 +19,12 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://sharetextqr.com' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
       ...items.map((item, index) => ({
         '@type': 'ListItem',
         position: index + 2,
         name: item.label,
-        ...(item.href ? { item: `https://sharetextqr.com${item.href}` } : {}),
+        ...(item.href ? { item: `${BASE_URL}${item.href}` } : {}),
       })),
     ],
   };
@@ -34,7 +35,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav aria-label="Breadcrumb" className={cn('mb-4', className)}>
+      <nav aria-label="Breadcrumb" className={cn('mb-5', className)}>
         <ol className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
           <li>
             <Link href="/" className="hover:text-primary transition-colors">

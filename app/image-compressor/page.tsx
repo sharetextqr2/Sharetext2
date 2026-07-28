@@ -1,13 +1,11 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const ImageCompressor = dynamic(() => import('@/components/tools/image-compressor'), { ssr: false });
+import ImageCompressor from '@/components/tools/image-compressor';
 
 const faqItems = [
   { question: 'How does image compression work?', answer: 'The tool re-encodes your image at a lower quality setting to reduce file size. The quality slider lets you balance between size and visual quality.' },
@@ -32,7 +30,6 @@ export default function ImageCompressorPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR Image Compressor', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'Compress images in your browser with adjustable quality.', url: `${BASE_URL}/image-compressor` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'Image Compressor' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'Image Compressor' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">Image Compressor</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Reduce image file size while maintaining quality. Adjust the compression level with a simple slider and see before-and-after comparisons instantly.</p></div>}

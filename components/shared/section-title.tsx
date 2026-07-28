@@ -11,9 +11,9 @@ interface SectionTitleProps {
 export function SectionTitle({ title, description, className, align = 'center' }: SectionTitleProps) {
   return (
     <div className={cn(align === 'center' ? 'text-center' : 'text-left', className)}>
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{title}</h2>
+      <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">{title}</h2>
       {description && (
-        <p className="mt-2 text-gray-500 max-w-2xl">{description}</p>
+        <p className="mt-3 text-gray-500 max-w-2xl text-base md:text-lg leading-relaxed">{description}</p>
       )}
     </div>
   );

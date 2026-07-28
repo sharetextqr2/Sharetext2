@@ -1,20 +1,18 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const PngToSvg = dynamic(() => import('@/components/tools/png-to-svg'), { ssr: false });
+import PngToSvg from '@/components/tools/png-to-svg';
 
 const faqItems = [
   { question: 'How does PNG to SVG conversion work?', answer: 'The tool uses image tracing to convert raster PNG pixels into scalable SVG vector paths. This allows you to resize the result without losing quality.' },
   { question: 'Will the SVG look exactly like my PNG?', answer: 'The conversion approximates the PNG as vector paths. Simple images with solid colors convert best. Complex photographs may lose detail compared to the original.' },
   { question: 'Can I edit the SVG after conversion?', answer: 'Yes, the resulting SVG file can be opened and edited in any vector graphics editor like Illustrator, Inkscape, or Figma.' },
-  { question: 'Is there a file size limit?', answer: 'Files up to 20 MB are supported.' },
-  { question: 'Is my image uploaded to a server?', answer: 'No. All processing happens locally in your browser. Your images are never uploaded.' },
+  { question: 'What file types can I convert?', answer: 'You can convert PNG, JPG, JPEG and WebP images to SVG.' },
+  { question: 'Is my image uploaded to a server?', answer: 'Your image is uploaded to our server for conversion with VTracer, a high-quality vectorization engine. The image is not stored after conversion.' },
 ];
 
 const relatedHrefs = ['/svg-to-png', '/svg-viewer', '/image-to-text', '/image-compressor'];
@@ -32,7 +30,6 @@ export default function PngToSvgPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR PNG to SVG Converter', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'Convert PNG images to SVG vectors instantly in your browser.', url: `${BASE_URL}/png-to-svg` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'PNG to SVG Converter' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'PNG to SVG Converter' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">PNG to SVG Converter</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Convert your PNG images into scalable SVG vectors. Perfect for logos, icons, and illustrations that need to look sharp at any size.</p></div>}

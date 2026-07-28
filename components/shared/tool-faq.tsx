@@ -32,16 +32,16 @@ export function ToolFAQ({ items, className }: ToolFAQProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <SectionTitle title="Frequently Asked Questions" align="left" className="mb-6" />
-      <div className="space-y-4">
+      <div className="space-y-3">
         {items.map((item, index) => (
           <details
             key={index}
-            className="group bg-white rounded-xl border border-gray-200 overflow-hidden"
+            className="group card-premium overflow-hidden transition-all duration-200 hover:shadow-md hover:shadow-gray-200/50"
           >
-            <summary className="flex items-center justify-between px-5 py-4 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden">
+            <summary className="flex items-center justify-between px-5 py-4 text-sm font-medium text-gray-900 cursor-pointer hover:bg-gray-50/50 transition-colors [&::-webkit-details-marker]:hidden">
               {item.question}
               <svg
-                className="w-4 h-4 text-gray-500 shrink-0 group-open:rotate-180 transition-transform"
+                className="w-4 h-4 text-gray-500 shrink-0 group-open:rotate-180 transition-transform duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

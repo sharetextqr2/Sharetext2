@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-const SITE_NAME = 'ShareTextQR';
-export const BASE_URL = 'https://sharetextqr.com';
+export const SITE_NAME = 'ShareTextQR';
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://sharetextqr.com';
 const DEFAULT_OG_IMAGE = '/og-image.svg';
 const TWITTER_HANDLE = '@sharetextqr';
 
@@ -25,6 +25,7 @@ export function seo(params: SeoParams): Metadata {
     title: params.title,
     description: params.description,
     keywords: params.keywords,
+    applicationName: SITE_NAME,
     alternates: {
       canonical: fullUrl,
     },

@@ -1,13 +1,11 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const HeicToJpg = dynamic(() => import('@/components/tools/heic-to-jpg'), { ssr: false });
+import HeicToJpg from '@/components/tools/heic-to-jpg';
 
 const faqItems = [
   { question: 'What is HEIC format?', answer: 'HEIC (High Efficiency Image Container) is Apple\'s default image format on iOS 11 and later. It offers better compression than JPG but is not supported on all devices.' },
@@ -32,7 +30,6 @@ export default function HeicToJpgPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR HEIC to JPG Converter', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'Convert Apple HEIC images to JPG in your browser.', url: `${BASE_URL}/heic-to-jpg` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'HEIC to JPG Converter' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'HEIC to JPG Converter' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">HEIC to JPG Converter</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Convert Apple HEIC/HEIF photos to universally compatible JPG format. Works on any device, directly in your browser.</p></div>}

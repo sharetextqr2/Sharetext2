@@ -1,13 +1,11 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const ImageResizer = dynamic(() => import('@/components/tools/image-resizer'), { ssr: false });
+import ImageResizer from '@/components/tools/image-resizer';
 
 const faqItems = [
   { question: 'How does image resizing work?', answer: 'Enter your desired width and height in pixels, and the tool resizes the image using high-quality canvas rendering. The aspect ratio can be maintained automatically.' },
@@ -32,7 +30,6 @@ export default function ImageResizerPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR Image Resizer', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'Resize images in your browser with custom dimensions.', url: `${BASE_URL}/image-resizer` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'Image Resizer' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'Image Resizer' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">Image Resizer</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Resize images to your exact specifications. Set custom width and height, maintain aspect ratio, and preview the result before downloading.</p></div>}

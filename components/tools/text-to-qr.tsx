@@ -2,11 +2,12 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { Copy, Check, RefreshCw, ArrowRight, ExternalLink, AlertCircle } from 'lucide-react';
+import { Copy, Check, RefreshCw, ArrowRight, ExternalLink, AlertCircle, QrCode, Download, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { getSupabase } from '@/lib/supabase';
+import { copyToClipboard } from '@/lib/utils';
 
 function generateShortId(): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -80,7 +81,35 @@ export default function TextToQR() {
     }
   }, [text]);
 
-  const handleCreateNew = useCallback(() => {
+  const handleDownload = useCallback(() => {
+    if (!qrRef.current) return;
+    const svg = qrRef.current.querySelector('svg');
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    canvas.width = 400;
+    canvas.height = 400;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const img = new Image();
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    img.onload = () => {
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      const pngUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = pngUrl;
+      a.download = 'sharetextqr-code.png';
+      a.click();
+      toast.success('QR code downloaded!');
+    };
+    img.src = url;
+  }, []);
+
+  const handleClear = useCallback(() => {
     setText('');
     setShowQR(false);
     setCopied(false);
@@ -89,111 +118,128 @@ export default function TextToQR() {
   }, []);
 
   const handleCopyLink = useCallback(async () => {
-    await navigator.clipboard.writeText(qrUrl);
-    setCopied(true);
-    toast.success('Link copied to clipboard!');
-    setTimeout(() => setCopied(false), 2000);
+    const ok = await copyToClipboard(qrUrl);
+    if (ok) {
+      setCopied(true);
+      toast.success('Copied successfully');
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      toast.error('Unable to copy. Please copy manually.');
+    }
   }, [qrUrl]);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="bg-primary px-6 py-4">
-        <h2 className="text-lg font-semibold text-white">Text to QR Generator</h2>
+    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+      <div className="flex items-center gap-3 mb-5">
+        <div className="w-10 h-10 rounded-xl bg-[#DBEAFE] flex items-center justify-center shrink-0">
+          <QrCode className="h-5 w-5 text-[#2563EB]" />
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900">Text to QR Generator</h2>
+          <p className="text-sm text-gray-500">Convert text into a QR code instantly.</p>
+        </div>
       </div>
+      <div className="border-t border-gray-100 mb-6" />
 
-      <div className="p-6 md:p-8">
-        {envError && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm font-medium text-red-800">Supabase not configured</p>
-              <p className="text-sm text-red-600 mt-1">
-                Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables to enable text sharing.
-              </p>
-            </div>
+      {envError && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl flex items-start gap-3">
+          <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-red-800">Supabase not configured</p>
+            <p className="text-sm text-red-600 mt-1">
+              Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables to enable text sharing.
+            </p>
           </div>
-        )}
+        </div>
+      )}
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-2">
-                Enter your text
-              </label>
-              <Textarea
-                id="text-input"
-                placeholder="Paste notes, URLs, code snippets, messages, or any text you want to share..."
-                value={text}
-                onChange={(e) => { setText(e.target.value); setShowQR(false); }}
-                className="min-h-[200px] resize-none"
-              />
-            </div>
-            <div className="flex gap-3">
-              <Button onClick={handleGenerate} disabled={!text.trim() || generating} className="flex-1">
-                {generating ? (
-                  <><RefreshCw className="mr-2 h-4 w-4 animate-spin" /> Generating...</>
-                ) : (
-                  <>Generate QR <ArrowRight className="ml-2 h-4 w-4" /></>
-                )}
-              </Button>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <span>{text.length} characters</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
-              <span>Unlimited text supported</span>
-            </div>
+      <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="space-y-5">
+          <div>
+            <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-2">
+              Enter your text
+            </label>
+            <Textarea
+              id="text-input"
+              placeholder="Paste notes, URLs, code snippets, messages, or any text you want to share..."
+              value={text}
+              onChange={(e) => { setText(e.target.value); setShowQR(false); }}
+              className="min-h-[200px] resize-none"
+            />
           </div>
-
-          <div className="flex items-center justify-center">
-            <div className="w-full aspect-square max-w-[280px] mx-auto bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
-              {showQR && qrUrl ? (
-                <div ref={qrRef} className="p-6 qr-display">
-                  <QRCodeSVG value={qrUrl} size={200} level="H" includeMargin={false} />
-                </div>
+          <div className="flex gap-3">
+            <Button
+              onClick={handleGenerate}
+              disabled={!text.trim() || generating}
+              className="flex-1 h-[52px] rounded-[14px] bg-[#2563EB] hover:bg-[#1D4ED8] shadow-lg shadow-blue-900/20"
+            >
+              {generating ? (
+                <><RefreshCw className="mr-2 h-4 w-4 animate-spin" /> Generating...</>
               ) : (
-                <div className="text-center px-6">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gray-100 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                        d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-                    </svg>
-                  </div>
-                  <p className="text-sm text-gray-500">Your QR code will appear here</p>
-                </div>
+                <><QrCode className="mr-2 h-4 w-4" /> Generate QR <ArrowRight className="ml-2 h-4 w-4" /></>
               )}
-            </div>
+            </Button>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            <span>{text.length} characters</span>
+            <span className="w-1 h-1 rounded-full bg-gray-300" />
+            <span>Unlimited text supported</span>
           </div>
         </div>
 
-        {showQR && qrUrl && (
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-4">
-              <span className="font-medium">Share URL:</span>
-              <code className="px-2 py-1 bg-gray-100 rounded text-xs break-all max-w-[300px]">
-                {qrUrl}
-              </code>
+        <div className="flex items-center justify-center">
+          {showQR && qrUrl ? (
+            <div className="w-full aspect-square max-w-[280px] mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center justify-center transition-all duration-300" style={{ animation: 'fadeIn 0.3s ease-out' }}>
+              <div ref={qrRef} className="p-6">
+                <QRCodeSVG value={qrUrl} size={200} level="H" includeMargin={false} />
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Button variant="outline" onClick={handleCopyLink} className="gap-2">
-                {copied ? <><Check className="h-4 w-4 text-green-500" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy Link</>}
-              </Button>
-              <Button variant="outline" asChild className="gap-2">
-                <a href={qrUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4" />
-                  Share
-                </a>
-              </Button>
-              <Button variant="outline" onClick={handleCreateNew} className="gap-2">
-                <RefreshCw className="h-4 w-4" />
-                Create New
-              </Button>
+          ) : (
+            <div className="w-full aspect-square max-w-[280px] mx-auto bg-[#EFF6FF] rounded-2xl border-2 border-dashed border-[#BFDBFE] flex items-center justify-center">
+              <div className="text-center px-6">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#DBEAFE] flex items-center justify-center">
+                  <QrCode className="h-8 w-8 text-[#2563EB]" />
+                </div>
+                <p className="text-sm font-semibold text-gray-900 mb-1">Your QR Code</p>
+                <p className="text-xs text-gray-500">Generate a QR code to preview and download.</p>
+              </div>
             </div>
-            <p className="text-center text-xs text-gray-500 mt-4">
-              Scan the QR code to open this text on another device
-            </p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+
+      {showQR && qrUrl && (
+        <div className="mt-8 pt-8 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-5">
+            <span className="font-medium">Share URL:</span>
+            <code className="px-3 py-1.5 bg-gray-50 rounded-lg text-xs break-all max-w-[300px]">
+              {qrUrl}
+            </code>
+          </div>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Button onClick={handleDownload} className="gap-2 bg-[#2563EB] hover:bg-[#1D4ED8]">
+              <Download className="h-4 w-4" />
+              Download PNG
+            </Button>
+            <Button variant="outline" onClick={handleCopyLink} className="gap-2">
+              {copied ? <><Check className="h-4 w-4 text-green-500" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy</>}
+            </Button>
+            <Button variant="outline" asChild className="gap-2">
+              <a href={qrUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4" />
+                Share
+              </a>
+            </Button>
+            <Button variant="outline" onClick={handleClear} className="gap-2">
+              <Trash2 className="h-4 w-4" />
+              Clear
+            </Button>
+          </div>
+          <p className="text-center text-xs text-gray-500 mt-5">
+            Scan the QR code to open this text on another device
+          </p>
+        </div>
+      )}
     </div>
   );
 }

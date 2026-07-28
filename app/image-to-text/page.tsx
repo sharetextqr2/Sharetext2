@@ -1,23 +1,22 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const ImageToText = dynamic(() => import('@/components/tools/image-to-text'), { ssr: false });
+import ImageToText from '@/components/tools/image-to-text';
 
 const faqItems = [
-  { question: 'How accurate is the OCR?', answer: 'Accuracy depends on image quality and text clarity. High-resolution images with clear, printed text yield the best results. Handwriting may have lower accuracy.' },
-  { question: 'What image formats are supported?', answer: 'PNG, JPG, WebP, BMP, and TIFF formats are supported.' },
-  { question: 'Is there a file size limit?', answer: 'Files up to 20 MB are supported.' },
-  { question: 'Can I copy the extracted text?', answer: 'Yes, click Copy Text to copy the extracted text to your clipboard, or Download .txt to save it as a file.' },
-  { question: 'Is my image uploaded to a server?', answer: 'No. OCR processing runs entirely in your browser using Tesseract.js. Your images are never uploaded.' },
+  { question: 'How accurate is the OCR?', answer: 'Our OCR uses the OCR.Space API powered by advanced OCR engines. It delivers excellent accuracy for printed text, documents, receipts, and screenshots. Preprocessing enhances contrast and sharpness before OCR.' },
+  { question: 'What image formats are supported?', answer: 'PNG, JPG, JPEG, WebP, BMP, and TIFF formats are supported.' },
+  { question: 'Is there a file size limit?', answer: 'Files up to 10 MB are supported.' },
+  { question: 'Can I copy the extracted text?', answer: 'Yes, click the Copy button to copy the active tab content to your clipboard. You can also download as TXT, HTML, or JSON.' },
+  { question: 'Is my image uploaded to a server?', answer: 'Your image is securely uploaded to OCR.Space for processing and is not stored. The API key is kept private server-side.' },
+  { question: 'What output formats are available?', answer: 'You can view the results as Formatted Text, Plain Text, or Raw JSON. Download options include TXT, HTML, and JSON.' },
 ];
 
-const relatedHrefs = ['/text-to-qr', '/png-to-svg', '/svg-viewer', '/remove-background'];
+const relatedHrefs = ['/remove-background', '/image-compressor', '/passport-photo-maker', '/text-to-qr'];
 
 const homepageArticles = blogPosts.filter((p) => p.featured).slice(0, 6);
 
@@ -32,7 +31,6 @@ export default function ImageToTextPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR Image to Text OCR', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'Extract text from images using browser-based OCR.', url: `${BASE_URL}/image-to-text` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'Image to Text OCR' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'Image to Text OCR' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">Image to Text (OCR)</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Extract text from images using optical character recognition. Upload a photo or screenshot and get editable text instantly — all in your browser.</p></div>}

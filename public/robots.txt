@@ -1,8 +1,4 @@
-# robots.txt for ShareTextQR
-# See https://www.robotstxt.org/robotstxt.html
-
 User-agent: *
 Allow: /
 
 Sitemap: https://sharetextqr.com/sitemap.xml
-Host: https://sharetextqr.com

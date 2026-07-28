@@ -62,7 +62,7 @@ export function Search({ className }: { className?: string }) {
   return (
     <div className={cn('relative', className)} role="combobox" aria-expanded={isOpen} aria-haspopup="listbox" aria-controls="search-results">
       <div className="relative">
-        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+        <SearchIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
         <input
           ref={inputRef}
           type="text"
@@ -79,14 +79,14 @@ export function Search({ className }: { className?: string }) {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          className="w-full pl-9 pr-8 py-2 rounded-lg border border-gray-200 bg-white text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+          className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 placeholder:text-gray-400 transition-all duration-200 focus:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
         {query && (
           <button
             type="button"
             aria-label="Clear search"
             onClick={() => { setQuery(''); inputRef.current?.focus(); }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -96,7 +96,7 @@ export function Search({ className }: { className?: string }) {
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="absolute top-full mt-1 left-0 right-0 bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden z-50"
+          className="absolute top-full mt-1.5 left-0 right-0 bg-white rounded-xl border border-gray-100 shadow-lg shadow-gray-200/50 overflow-hidden z-50 animate-fade-in"
         >
           {results.length === 0 ? (
             <div className="p-4 text-center text-sm text-gray-500" role="status" aria-live="polite">
@@ -112,13 +112,13 @@ export function Search({ className }: { className?: string }) {
                       href={tool.href}
                       onClick={handleSelect}
                       className={cn(
-                        'flex items-center gap-3 px-3 py-2 text-sm transition-colors',
+                        'flex items-center gap-3 px-3 py-2.5 text-sm transition-colors',
                         index === focusedIndex
                           ? 'bg-primary/10 text-primary'
                           : 'text-gray-700 hover:bg-gray-50'
                       )}
                     >
-                      <Icon className="h-4 w-4 shrink-0" />
+                      <Icon className="h-4 w-4 shrink-0 text-gray-400" />
                       <div className="min-w-0">
                         <span className="font-medium block truncate">{tool.name}</span>
                         <span className="text-xs text-gray-500 block truncate">{tool.description}</span>

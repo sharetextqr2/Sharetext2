@@ -2,7 +2,7 @@ import { seo } from '@/lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, Tag } from 'lucide-react';
-import { getBlogPost, blogPosts, categories, type BlogPost } from '@/lib/blog-data';
+import { getBlogPost, blogPosts, categories } from '@/lib/blog-data';
 import { Breadcrumb } from '@/components/shared/breadcrumb';
 import { AdContainer } from '@/components/shared/ad-container';
 import { PageContainer } from '@/components/shared/page-container';
@@ -22,6 +22,51 @@ const categoryTools: Record<string, string[]> = {
   'communication': ['/text-to-qr', '/scan-qr'],
   'remote-work': ['/text-to-qr', '/image-compressor', '/image-resizer'],
 };
+
+function renderMarkdown(content: string): string {
+  const lines = content.split('\n');
+  const result: string[] = [];
+  let inList = false;
+  let inTable = false;
+  let tableHeader = false;
+
+  const inline = (text: string) => text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  const closeList = () => { if (inList) { result.push('</ul>'); inList = false; } };
+  const closeTable = () => { if (inTable) { result.push('</tbody></table>'); inTable = false; } };
+
+  for (const line of lines) {
+    if (line.startsWith('## ')) {
+      closeList(); closeTable();
+      result.push(`<h2>${inline(line.slice(3))}</h2>`);
+    } else if (line.startsWith('### ')) {
+      closeList(); closeTable();
+      result.push(`<h3>${inline(line.slice(4))}</h3>`);
+    } else if (line.startsWith('- ')) {
+      closeTable();
+      if (!inList) { result.push('<ul>'); inList = true; }
+      result.push(`<li>${inline(line.slice(2))}</li>`);
+    } else if (line.startsWith('|') && line.endsWith('|')) {
+      closeList();
+      const cells = line.split('|').filter(Boolean).map((c) => c.trim());
+      if (cells.every((c) => /^-+$/.test(c))) continue;
+      if (!inTable) {
+        result.push('<table><thead><tr>');
+        result.push(cells.map((c) => `<th>${inline(c)}</th>`).join(''));
+        result.push('</tr></thead><tbody>');
+        inTable = true;
+      } else {
+        result.push(`<tr>${cells.map((c) => `<td>${inline(c)}</td>`).join('')}</tr>`);
+      }
+    } else if (line.trim() === '') {
+      closeList(); closeTable();
+    } else {
+      closeList(); closeTable();
+      if (line.trim()) result.push(`<p>${inline(line.trim())}</p>`);
+    }
+  }
+  closeList(); closeTable();
+  return result.join('\n');
+}
 
 export async function generateMetadata({ params }: PageProps): Promise<import('next').Metadata> {
   const post = getBlogPost(params.slug);
@@ -138,11 +183,7 @@ export default function BlogPostPage({ params }: PageProps) {
                   prose-table:border-collapse prose-th:border prose-th:border-gray-200 prose-th:px-4 prose-th:py-2 prose-th:bg-gray-50
                   prose-td:border prose-td:border-gray-200 prose-td:px-4 prose-td:py-2"
                 dangerouslySetInnerHTML={{
-                  __html: post.content
-                    .replace(/\n/g, '<br/>')
-                    .replace(/## /g, '<h2>')
-                    .replace(/### /g, '<h3>')
-                    .replace(/- /g, '<li>'),
+                  __html: renderMarkdown(post.content),
                 }}
               />
             </div>

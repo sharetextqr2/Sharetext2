@@ -15,14 +15,14 @@ export function Section({
   background = 'default',
 }: SectionProps) {
   const backgroundStyles = {
-    default: 'bg-white',
-    muted: 'bg-gray-50',
+    default: 'bg-white/50',
+    muted: 'bg-muted/50',
   };
 
   return (
     <section
       id={id}
-      className={cn('py-16 md:py-24', backgroundStyles[background], className)}
+      className={cn('py-20 md:py-24', backgroundStyles[background], className)}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {children}
@@ -63,7 +63,7 @@ export function SectionHeader({
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">
+        <p className="mt-4 text-lg text-gray-500 max-w-3xl mx-auto leading-relaxed">
           {description}
         </p>
       )}

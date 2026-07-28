@@ -4,6 +4,9 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   images: { unoptimized: true },
+  experimental: {
+    serverComponentsExternalPackages: ['@visioncortex/vtracer', 'sharp'],
+  },
 };
 
 module.exports = nextConfig;

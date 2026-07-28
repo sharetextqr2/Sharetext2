@@ -26,21 +26,21 @@ export function ArticleCard({ post, className }: ArticleCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        'group block bg-white rounded-xl border border-gray-200 hover:border-primary/30 hover:shadow-sm transition-all duration-200 overflow-hidden',
+        'group block card-premium-hover overflow-hidden',
         className
       )}
     >
-      <div className="p-5">
-        <span className="text-xs font-medium text-primary uppercase tracking-wider">
+      <div className="p-6">
+        <span className="text-xs font-semibold text-primary uppercase tracking-wider">
           {categoryName}
         </span>
-        <h3 className="text-base font-semibold text-gray-900 mt-2 group-hover:text-primary transition-colors line-clamp-2">
+        <h3 className="text-base font-semibold text-gray-900 mt-2.5 group-hover:text-primary transition-colors line-clamp-2">
           {post.title}
         </h3>
-        <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+        <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">
           {post.excerpt}
         </p>
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center justify-between mt-5">
           <div className="flex items-center gap-2 text-xs text-gray-400">
             <span>{post.readTime}</span>
             <span className="w-1 h-1 rounded-full bg-gray-300" />

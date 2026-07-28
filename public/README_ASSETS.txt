@@ -1,9 +1,17 @@
-This folder contains generated SVG assets used for favicon, logo, and social preview (OG image).
-Files:
+This folder contains assets used for favicon, logo, and social preview (OG image).
+Source:
 - favicon.svg
 - logo.svg
 - og-image.svg
-- apple-touch-icon.svg
-- site.webmanifest
 
-Replace these with designer-provided PNG/SVG assets for production when available.
+Generated assets (auto-generated from favicon.svg):
+- favicon.ico
+- favicon-16x16.png
+- favicon-32x32.png
+- favicon-48x48.png
+- apple-touch-icon.png
+- android-chrome-192x192.png
+- android-chrome-512x512.png
+
+Configuration:
+- site.webmanifest

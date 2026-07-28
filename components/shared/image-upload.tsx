@@ -95,14 +95,14 @@ export function ImageUpload({ onFile, validation, label }: ImageUploadProps) {
         onDrop={handleDrop}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        className={`relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[200px] ${
+        className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-10 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 min-h-[220px] ${
           dragOver
             ? 'border-primary bg-primary/5'
             : preview
-              ? 'border-gray-300 bg-gray-50'
+              ? 'border-gray-200 bg-gray-50/50'
               : error
-                ? 'border-red-300 bg-red-50'
-                : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
+                ? 'border-red-200 bg-red-50/50'
+                : 'border-gray-200 bg-gray-50/50 hover:bg-gray-100/50 hover:border-gray-300'
         }`}
       >
         <input
@@ -120,24 +120,24 @@ export function ImageUpload({ onFile, validation, label }: ImageUploadProps) {
               src={preview}
               alt="Upload preview"
               loading="lazy"
-              className="max-h-48 max-w-full rounded-lg object-contain"
+              className="max-h-48 max-w-full rounded-xl object-contain"
             />
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); handleReset(); }}
               aria-label="Remove file"
-              className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors"
+              className="absolute top-3 right-3 p-2 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors"
             >
               <X className="h-4 w-4 text-gray-500" />
             </button>
           </>
         ) : (
-          <div className="flex flex-col items-center gap-3 text-center">
-            <div className="w-12 h-12 rounded-xl bg-white shadow-sm border border-gray-200 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center">
               {error ? (
-                <AlertCircle className="h-6 w-6 text-red-500" />
+                <AlertCircle className="h-7 w-7 text-red-500" />
               ) : (
-                <Upload className="h-6 w-6 text-gray-400" />
+                <Upload className="h-7 w-7 text-gray-400" />
               )}
             </div>
             <div>
@@ -145,7 +145,7 @@ export function ImageUpload({ onFile, validation, label }: ImageUploadProps) {
                 {error || (label || 'Drop an image here or click to browse')}
               </p>
               {!error && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-1.5">
                   {validation?.acceptedTypes
                     ? validation.acceptedTypes.filter((t) => t.startsWith('.')).join(', ').toUpperCase()
                     : 'Images'}{' '}

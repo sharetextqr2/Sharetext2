@@ -1,13 +1,11 @@
 import React from 'react';
 import { seo, BASE_URL } from '@/lib/seo';
-import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/shared/tool-layout';
 import { ToolFAQ } from '@/components/shared/tool-faq';
 import { RelatedTools } from '@/components/shared/related-tools';
 import { ArticleCard } from '@/components/shared/article-card';
 import { blogPosts } from '@/lib/blog-data';
-
-const RemoveBackground = dynamic(() => import('@/components/tools/remove-background'), { ssr: false });
+import RemoveBackground from '@/components/tools/remove-background';
 
 const faqItems = [
   { question: 'How does the background removal work?', answer: 'The tool analyzes the image and removes pixels that match the background color. For best results, use images with a solid, contrasting background.' },
@@ -32,7 +30,6 @@ export default function RemoveBackgroundPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'ShareTextQR Background Remover', applicationCategory: 'MultimediaApplication', operatingSystem: 'Web', description: 'Remove backgrounds from images in your browser.', url: `${BASE_URL}/remove-background` }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 2, name: 'Image Tools', item: BASE_URL + '/' }, { '@type': 'ListItem', position: 3, name: 'Background Remover' }] }) }} />
       <ToolLayout
         breadcrumbItems={[{ label: 'Home', href: '/' }, { label: 'Image Tools', href: '/' }, { label: 'Background Remover' }]}
         header={<div><h1 className="text-3xl md:text-4xl font-bold text-gray-900">Remove Background</h1><p className="mt-3 text-lg text-gray-600 max-w-3xl">Remove the background from any image automatically. Download your result as a PNG with a transparent background for use in designs.</p></div>}

@@ -17,7 +17,7 @@ export function AdContainer({ className, height = 'md' }: AdContainerProps) {
     <div className={cn('w-full', className)}>
       <div
         className={cn(
-          'w-full rounded-xl bg-gray-100 flex items-center justify-center text-sm text-gray-400 select-none',
+          'w-full rounded-2xl bg-gray-50/80 flex items-center justify-center text-sm text-gray-400 select-none border border-gray-100',
           heightClasses[height]
         )}
         aria-label="Advertisement"

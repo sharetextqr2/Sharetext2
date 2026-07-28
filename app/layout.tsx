@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/sonner';
+import { SITE_NAME, BASE_URL } from '@/lib/seo';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -14,26 +15,26 @@ const inter = Inter({
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://sharetextqr.com'),
+  metadataBase: new URL(BASE_URL),
   title: {
-    default: 'ShareTextQR - Free Online QR Code & Image Tools',
+    default: 'Share Text Online Instantly for Free | ShareTextQR',
     template: '%s | ShareTextQR',
   },
   description:
-    'Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, and more. No signup required.',
+    'Share text online instantly for free. Generate QR codes, share notes, URLs and code snippets securely. No login required.',
   keywords: [
-    'qr code generator',
+    'share text online',
     'text to qr',
-    'online qr code',
+    'online qr code generator',
     'free image tools',
     'png to svg',
     'image compressor',
     'qr code scanner',
-    'online utilities',
   ],
-  authors: [{ name: 'ShareTextQR' }],
-  creator: 'ShareTextQR',
-  publisher: 'ShareTextQR',
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  applicationName: SITE_NAME,
   formatDetection: {
     email: false,
     address: false,
@@ -42,25 +43,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://sharetextqr.com',
-    siteName: 'ShareTextQR',
-    title: 'ShareTextQR - Free Online QR Code & Image Tools',
+    url: BASE_URL,
+    siteName: SITE_NAME,
+    title: 'Share Text Online Instantly for Free | ShareTextQR',
     description:
-      'Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, and more. No signup required.',
+      'Share text online instantly for free. Generate QR codes, share notes, URLs and code snippets securely. No login required.',
     images: [
       {
         url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'ShareTextQR - Free Online QR Code & Image Tools',
+        alt: 'ShareTextQR - Share Text Online Instantly for Free',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ShareTextQR - Free Online QR Code & Image Tools',
+    title: 'Share Text Online Instantly for Free | ShareTextQR',
     description:
-      'Free online QR code generator and image tools. Convert text to QR, scan QR codes, convert images, and more.',
+      'Share text online instantly for free. Generate QR codes, share notes, URLs and code snippets securely. No login required.',
     images: ['/og-image.svg'],
     creator: '@sharetextqr',
   },
@@ -79,7 +80,16 @@ export const metadata: Metadata = {
     google: 'google-verification-code',
   },
   alternates: {
-    canonical: 'https://sharetextqr.com',
+    canonical: BASE_URL,
+  },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png?v=2', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png?v=2', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png?v=2', sizes: '48x48', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png?v=2',
+    shortcut: '/favicon.ico?v=2',
   },
 };
 
@@ -91,10 +101,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="256x256" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#2563EB" />
         <meta name="image" content="/og-image.svg" />
@@ -102,8 +108,9 @@ export default function RootLayout({
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'ShareTextQR',
-            url: 'https://www.sharetextqr.com',
+            name: SITE_NAME,
+            alternateName: 'Share Text QR',
+            url: BASE_URL,
           }),
         }} />
         {GA_ID ? (
