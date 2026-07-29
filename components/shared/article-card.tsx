@@ -12,6 +12,7 @@ const categoryNames: Record<string, string> = {
   'device-tips': 'Device Tips',
   communication: 'Communication',
   'remote-work': 'Remote Work',
+  'passport-photos': 'Passport Photos',
 };
 
 interface ArticleCardProps {

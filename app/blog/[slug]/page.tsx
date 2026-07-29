@@ -1,4 +1,5 @@
 import { seo } from '@/lib/seo';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, Tag } from 'lucide-react';
@@ -21,6 +22,7 @@ const categoryTools: Record<string, string[]> = {
   'education': ['/text-to-qr', '/scan-qr', '/image-to-text'],
   'communication': ['/text-to-qr', '/scan-qr'],
   'remote-work': ['/text-to-qr', '/image-compressor', '/image-resizer'],
+  'passport-photos': ['/passport-photo-maker', '/remove-background', '/image-resizer', '/image-compressor'],
 };
 
 function renderMarkdown(content: string): string {
@@ -72,6 +74,10 @@ export async function generateMetadata({ params }: PageProps): Promise<import('n
   const post = getBlogPost(params.slug);
   if (!post) return { title: 'Not Found' };
 
+  const keywords: Record<string, string[]> = {
+    'passport-photos': ['Indian Passport', 'Passport Photo', 'Passport Size Photo', 'Indian Passport Photo Size', 'Passport Requirements'],
+  };
+
   return seo({
     title: post.title,
     description: post.excerpt,
@@ -79,6 +85,8 @@ export async function generateMetadata({ params }: PageProps): Promise<import('n
     ogType: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author],
+    keywords: keywords[post.category],
+    ogImage: post.featuredImage,
   });
 }
 
@@ -124,9 +132,58 @@ export default function BlogPostPage({ params }: PageProps) {
             datePublished: post.publishedAt,
             author: { '@type': 'Person', name: post.author },
             publisher: { '@type': 'Organization', name: 'ShareTextQR', url: 'https://sharetextqr.com' },
+            ...(post.featuredImage && { image: `https://sharetextqr.com${post.featuredImage}` }),
           }),
         }}
       />
+      {post.slug === 'indian-passport-photo-size-guide-2026' && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: [
+                {
+                  '@type': 'Question',
+                  name: 'Is the Indian passport photo size 2 × 2 inches?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Yes. The official passport photo size is 51 × 51 mm, which equals 2 × 2 inches.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I smile in my Indian passport photo?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'A neutral facial expression is recommended. Avoid broad smiles or exaggerated expressions.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I wear spectacles in my Indian passport photo?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Yes, provided your eyes remain clearly visible and there is no glare on the lenses.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I wear religious head coverings in my passport photo?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Yes. Religious head coverings are permitted if your complete face remains visible.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I use my phone to take a passport photo?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Absolutely. Most modern smartphones produce images suitable for passport applications when proper lighting and a white background are used.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'What background colour should I use for my Indian passport photo?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'A plain white background without shadows or objects.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Can I edit my Indian passport photo?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Basic cropping and brightness adjustments are acceptable. Avoid beauty filters, AI face enhancements, or edits that alter your natural appearance.' },
+                },
+              ],
+            }),
+          }}
+        />
+      )}
 
       <div className="pt-20 md:pt-24">
         <PageContainer>
@@ -137,6 +194,25 @@ export default function BlogPostPage({ params }: PageProps) {
           ]} />
         </PageContainer>
       </div>
+
+      {post.featuredImage && (
+        <div className="bg-gray-50">
+          <PageContainer className="py-8">
+            <div className="max-w-3xl mx-auto">
+              <div className="relative w-full aspect-[2/1] rounded-2xl overflow-hidden">
+                <Image
+                  src={post.featuredImage}
+                  alt={post.featuredImageAlt || post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  priority
+                />
+              </div>
+            </div>
+          </PageContainer>
+        </div>
+      )}
 
       <article>
         <PageContainer className="pb-8">

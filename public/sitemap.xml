@@ -51,6 +51,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sharetextqr.com/blog/category/passport-photos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sharetextqr.com/blog/how-to-share-text-using-qr-codes</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -102,6 +107,11 @@
   </url>
   <url>
     <loc>https://sharetextqr.com/blog/productivity-hacks-for-qr-based-text-transfer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sharetextqr.com/blog/indian-passport-photo-size-guide-2026</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
